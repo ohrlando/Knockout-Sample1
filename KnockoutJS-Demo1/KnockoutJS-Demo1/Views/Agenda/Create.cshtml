@@ -1,0 +1,21 @@
+﻿@model KnockoutJS_Demo1.Models.AgendaViewModel
+@{
+    ViewBag.Title = "Add";
+}
+
+<h2>Create novo evento</h2>
+<div id="agenda-eventos">
+    <label data-bind="text: agendaString()"></label><br />
+    <button data-bind="click: addEvent">Add Event</button><br />
+    <label>Nome da Agenda: <input data-bind="value: nome" type="text" name="" value="" /></label>
+    <ul data-bind="foreach: eventos">
+        <li>
+            <label>Data: <input data-bind="value: date" type="datetime" name="date" value="" /></label><br />
+            <label>Nome: <input data-bind="value: name" type="text" name="name" value="" /></label><br />
+            <label>Observation: <textarea data-bind="text: observation"></textarea></label>
+        </li>
+    </ul>
+</div>
+@section scripts {
+<script src="~/Scripts/knockout-demo.js"></script>
+}

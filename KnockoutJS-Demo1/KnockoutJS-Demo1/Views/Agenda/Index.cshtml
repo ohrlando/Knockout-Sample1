@@ -1,0 +1,41 @@
+﻿@model string
+
+@{
+    ViewBag.Title = "Index";
+}
+<script src="~/Scripts/knockout-demo.js"></script>
+<h2>Lista de eventos da agenda</h2>
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<p>
+    <input type="text" data-bind="value: agendaNome" /> (<label data-bind="text: count"></label>)
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Data</th>
+            <th>Nome do Evento</th>
+            <th>Observação</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody data-bind="foreach: eventos">
+        <tr data-bind="style: {'background-color': estaAtivo() ? 'green' : 'red'}">
+            <td><input data-bind="value: data, disable: !estaAtivo()" type="datetime" /></td>
+            <td><input data-bind="value:eventoNome, disable: !estaAtivo()" type="text" /></td>
+            <td><input data-bind="value: obs, disable: !estaAtivo()" type="text" /></td>
+            <td><button data-bind="click: $parent.desativar.bind(null, $data)" class="btn"><i>-</i></button> <button data-bind="style: {display:$data == $parent.eventos()[$parent.eventos().length - 1] ? '' : 'none'},  click: $parent.newEvento" class="btn"><i class="glyphicon-plus"></i></button></td>
+        </tr>
+    </tbody>
+    <tfoot>
+        <tr>
+            <td colspan="4"><button data-bind="click: Agenda.save">Save</button></td>
+        </tr>
+    </tfoot>
+</table>
+<script>
+    (function () {
+        ko.applyBindings(Agenda.prepareModel(JSON.parse('@Html.Raw(Model)')));
+    })();
+</script>
